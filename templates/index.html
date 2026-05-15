@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MatchMind AI</title>
+
+    <style>
+        body {
+            background: #070b14;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        h1 {
+            color: #00ffd5;
+            font-size: 45px;
+        }
+
+        input {
+            padding: 14px;
+            margin: 10px;
+            width: 260px;
+            border-radius: 10px;
+            border: none;
+            text-transform: uppercase;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        button {
+            padding: 14px 35px;
+            background: #00ffd5;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .card {
+            margin-top: 30px;
+            padding: 25px;
+            background: #111827;
+            display: inline-block;
+            border-radius: 15px;
+            box-shadow: 0 0 30px #00ffd5;
+        }
+
+        .result {
+            font-size: 24px;
+        }
+
+        .prob {
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        .hint {
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>⚽ MatchMind AI</h1>
+    <p>Form-Based Football Prediction Engine</p>
+
+    <form method="POST">
+
+        <input name="home_form" placeholder="Home Form (WWLWD)" required maxlength="5">
+        <input name="away_form" placeholder="Away Form (LWDWW)" required maxlength="5">
+
+        <div class="hint">
+            W = Win | D = Draw | L = Loss
+        </div>
+
+        <br><br>
+
+        <button type="submit">Predict Match</button>
+    </form>
+
+    {% if prediction %}
+
+    <div class="card">
+
+        <div class="result">
+            Prediction: {{ prediction }}
+        </div>
+
+        <div class="prob">
+            Confidence: {{ probability }}%
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</body>
+</html>
