@@ -1,23 +1,32 @@
 import numpy as np
 import joblib
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LinearRegression
 
-# We train using "form strength difference"
+# Features:
+# [square_feet, rooms]
 
 X = np.array([
-    [3.5],  # strong home advantage
-    [-2.0],
-    [1.0],
-    [-1.5],
-    [2.5],
-    [-3.0],
+    [500, 1],
+    [800, 2],
+    [1000, 3],
+    [1200, 3],
+    [1500, 4],
+    [1800, 4],
 ])
 
-y = np.array([1, 0, 1, 0, 1, 0])
+# house prices in (example currency)
+y = np.array([
+    20000,
+    35000,
+    50000,
+    60000,
+    75000,
+    90000
+])
 
-model = LogisticRegression()
+model = LinearRegression()
 model.fit(X, y)
 
 joblib.dump(model, "model.pkl")
 
-print("MatchMind AI trained with form system")
+print("House price model trained")

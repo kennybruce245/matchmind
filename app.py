@@ -1,47 +1,37 @@
 from flask import Flask, render_template, request
 import joblib
+import numpy as np
 
 app = Flask(__name__)
 model = joblib.load("model.pkl")
-
-
-# convert form string → numeric score
-def form_to_score(form):
-
-    mapping = {
-        "W": 1,
-        "D": 0.5,
-        "L": 0
-    }
-
-    return sum(mapping[f] for f in form.upper()) / 5
 
 
 @app.route("/", methods=["GET", "POST"])
 def home():
 
     prediction = None
-    probability = None
+    error = None
 
-    if request.method == "POST":
+    try:
+        if request.method == "POST":
 
-        home_form = request.form["home_form"]
-        away_form = request.form["away_form"]
+            location = request.form["location"]
+            sqft = float(request.form["sqft"])
+            rooms = float(request.form["rooms"])
 
-        home_score = form_to_score(home_form)
-        away_score = form_to_score(away_form)
+            # ML input
+            features = np.array([[sqft, rooms]])
 
-        diff = home_score - away_score
+            price = model.predict(features)[0]
 
-        pred = model.predict([[diff]])[0]
-        prob = model.predict_proba([[diff]])[0][1]
+            prediction = round(price, 2)
 
-        prediction = "HOME WIN" if pred == 1 else "AWAY/DRAW RISK"
-        probability = round(prob * 100, 2)
+    except:
+        error = "Invalid input or server error"
 
     return render_template("index.html",
                            prediction=prediction,
-                           probability=probability)
+                           error=error)
 
 if __name__ == "__main__":
     app.run(debug=True)
