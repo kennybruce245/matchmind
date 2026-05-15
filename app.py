@@ -19,19 +19,21 @@ def home():
             sqft = float(request.form["sqft"])
             rooms = float(request.form["rooms"])
 
-            # ML input
             features = np.array([[sqft, rooms]])
-
             price = model.predict(features)[0]
 
-            prediction = round(price, 2)
+            # PROFESSIONAL FORMATTING
+            prediction = f"${price:,.2f}"
 
-    except:
-        error = "Invalid input or server error"
+    except ValueError:
+        error = "Please enter valid numeric values."
+    except Exception:
+        error = "Server error. Please try again."
 
     return render_template("index.html",
                            prediction=prediction,
                            error=error)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

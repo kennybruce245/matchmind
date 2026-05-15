@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mietech LTD - House Price Prediction</title>
+    <title>Mietech LTD - House Price AI</title>
 
     <style>
         body {
@@ -14,36 +14,68 @@
 
         h1 {
             color: #00ffd5;
+            font-size: 42px;
         }
 
         input {
-            padding: 12px;
+            padding: 14px;
             margin: 10px;
-            width: 250px;
-            border-radius: 8px;
-            border: none;
+            width: 260px;
+            border-radius: 10px;
+            border: 1px solid #222;
+            background: #0f172a;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #00ffd5;
+            box-shadow: 0 0 10px #00ffd5;
         }
 
         button {
-            padding: 12px 25px;
+            padding: 14px 30px;
             background: #00ffd5;
             border: none;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 10px;
             font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
         }
 
         .card {
-            margin-top: 25px;
-            padding: 20px;
+            margin-top: 30px;
+            padding: 25px;
             background: #111827;
             display: inline-block;
-            border-radius: 12px;
-            box-shadow: 0 0 20px #00ffd5;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0,255,213,0.3);
+            min-width: 300px;
+        }
+
+        .label {
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        .price {
+            font-size: 40px;
+            font-weight: bold;
+            color: #00ffd5;
+            margin-top: 10px;
+        }
+
+        .footer {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #777;
         }
 
         .error {
             color: red;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -51,27 +83,40 @@
 <body>
 
     <h1>🏠 Mietech LTD</h1>
-    <p>House Price Prediction System</p>
+    <p>AI-Powered House Price Prediction System</p>
 
     <form method="POST">
 
         <input name="location" placeholder="Location (Gasabo)" required>
-        <input name="sqft" placeholder="Square Footage" required>
-        <input name="rooms" placeholder="Number of Rooms" required>
+        <br>
 
-        <br><br>
+        <input name="sqft" placeholder="Square Footage" required>
+        <br>
+
+        <input name="rooms" placeholder="Number of Rooms" required>
+        <br>
 
         <button type="submit">Predict Price</button>
     </form>
 
     {% if prediction %}
-        <div class="card">
-            Predicted Price: {{ prediction }}
+    <div class="card">
+
+        <div class="label">Estimated Property Value</div>
+
+        <div class="price">
+            {{ prediction }}
         </div>
+
+        <div class="footer">
+            AI Model • Mietech LTD Valuation Engine
+        </div>
+
+    </div>
     {% endif %}
 
     {% if error %}
-        <p class="error">{{ error }}</p>
+        <div class="error">{{ error }}</div>
     {% endif %}
 
 </body>

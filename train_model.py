@@ -2,9 +2,7 @@ import numpy as np
 import joblib
 from sklearn.linear_model import LinearRegression
 
-# Features:
-# [square_feet, rooms]
-
+# Features: [square_feet, rooms]
 X = np.array([
     [500, 1],
     [800, 2],
@@ -14,7 +12,7 @@ X = np.array([
     [1800, 4],
 ])
 
-# house prices in (example currency)
+# Prices (example dataset)
 y = np.array([
     20000,
     35000,
@@ -29,4 +27,4 @@ model.fit(X, y)
 
 joblib.dump(model, "model.pkl")
 
-print("House price model trained")
+print("Model trained successfully and saved as model.pkl")
